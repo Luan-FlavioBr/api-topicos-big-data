@@ -1,27 +1,28 @@
-import * as AlunoService from "../services/MunicipioService.js"
+import * as MunicipioService from "../services/MunicipioService.js"
 
-export async function create(req, res) {
+export async function listarMunicipiosPorUf(req, res) {
     try {
-        const aluno = await AlunoService.createAluno(req.body)
-        res.status(201).json(aluno)
-        // if (aluno) {
-        //     res.status(201).json(aluno)
-        // } else {
-        //     res.status(401).json({
-        //         error: "Falha ao cadastrar o aluno"
-        //     })
-        // }
-    } catch (error) {
+        const municipios = await MunicipioService.findMunicipiosPorUF(req.params.uf)
+        if (municipios && municipios.length > 0) {
+            res.status(201).json(municipios)
+        } else {
+            municipios && municipios.length === 0 ? res.status(404).json({error: `Não foi encontrado municípios para essa UF: ${req.params.uf}`}) : res.status(400).json([]);
+        }
 
+    } catch (error) {
+        res.status(500).json({
+            error: "Ocorreu um erro em nosso sistema, tente novamente mais tarde!"
+        })
+        console.log(error);
     }
 }
 
-export async function list(req, res) {
+export async function listarDadosCidade(req, res) {
     try {
         console.log(req.params.uf)
-        const aluno = await AlunoService.findAllAluno(req.params.uf)
-        if (aluno) {
-            res.status(201).json(aluno)
+        const cidade = await MunicipioService.findCidade(req.params.cidade)
+        if (cidade) {
+            res.status(201).json(cidade)
         } else {
             res.status(401).json({
                 error: "Falha ao localizar os alunos"
@@ -29,55 +30,9 @@ export async function list(req, res) {
         }
 
     } catch (error) {
-
-    }
-}
-
-
-export async function remove(req, res) {
-    try {
-        const aluno = await AlunoService.deleteAluno(req.params.id)
-        if (aluno) {
-            res.status(201).json(aluno)
-        } else {
-            res.status(401).json({
-                error: 'Falha ao remover o aluno'
-            })
-        }
-    } catch (error) {
-
-    }
-
-}
-
-
-export async function update(req, res) {
-    try {
-        const aluno = await AlunoService.updateAluno(req.params.id, req.body)
-        if (aluno) {
-            res.status(201).json(aluno)
-        } else {
-            res.status(401).json({
-                error: 'Falha ao atualizar o aluno'
-            })
-        }
-    } catch (error) {
-
-    }
-}
-
-
-export async function findOne(req, res) {
-    try {
-        const aluno = await AlunoService.findAluno(req.params.id)
-        if (aluno) {
-            res.status(201).json(aluno)
-        } else {
-            res.status(401).json({
-                error: 'Falha ao localizar o aluno'
-            })
-        }
-    } catch (error) {
-
+        res.status(500).json({
+            error: "Ocorreu um erro em nosso sistema, tente novamente mais tarde!"
+        })
+        console.log(error);
     }
 }
