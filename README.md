@@ -1,6 +1,7 @@
 # API de Localidades Brasileiras
 
 Este projeto é uma API RESTful desenvolvida em Node.js para consultar informações sobre municípios brasileiros, permitindo a busca de dados de uma cidade específica e a listagem de todos os municípios de um determinado estado (UF).
+Membros: Carlos Eduardo, Heloísa Cardoso, Gustavo do Amaral, João Bruno, Luan Flavio
 
 ## Tecnologias Utilizadas
 
