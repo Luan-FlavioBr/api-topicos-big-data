@@ -2,11 +2,12 @@ import * as MunicipioService from "../services/MunicipioService.js"
 
 export async function listarMunicipiosPorUf(req, res) {
     try {
-        const municipios = await MunicipioService.findMunicipiosPorUF(req.params.uf)
+        const uf = req.params.uf
+        const municipios = await MunicipioService.findMunicipiosPorUF(uf?.toUpperCase())
         if (municipios && municipios.length > 0) {
-            res.status(201).json(municipios)
+            res.status(200).json(municipios)
         } else {
-            municipios && municipios.length === 0 ? res.status(404).json({error: `Não foi encontrado municípios para essa UF: ${req.params.uf}`}) : res.status(400).json([]);
+            municipios && municipios.length === 0 ? res.status(404).json({error: `Não foi encontrado municípios para essa UF: ${uf}`}) : res.status(400).json([]);
         }
 
     } catch (error) {
@@ -22,11 +23,9 @@ export async function listarDadosCidade(req, res) {
         console.log(req.params.uf)
         const cidade = await MunicipioService.findCidade(req.params.cidade)
         if (cidade) {
-            res.status(201).json(cidade)
+            res.status(200).json(cidade)
         } else {
-            res.status(401).json({
-                error: "Falha ao localizar os alunos"
-            })
+            res.status(404).json({error: `Não foi encontrado a cidade/municipio: ${req.params.cidade}`})
         }
 
     } catch (error) {

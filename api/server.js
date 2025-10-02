@@ -2,8 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import 'dotenv/config'
-import alunoRoutes from './routes/MunicipioRoutes.js'
-// alunoRoutes
+import municipioRoutes from './routes/MunicipioRoutes.js'
 
 const app = express()
 app.use(cors())
@@ -27,7 +26,7 @@ app.get('/', (req, res) => res.json({
     msg: 'Servidor Funcionando'
 }))
 
-app.use(alunoRoutes)
+app.use(municipioRoutes)
 
 app.use((err, req, res, next) => {
     console.error(err)

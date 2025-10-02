@@ -8,6 +8,6 @@ export async function findMunicipiosPorUF(uf) {
 
 export async function findCidade(cidade) {
     console.log(cidade);
-    const cidades = await Localidade.findOne({"municipio.microrregiao.nome": cidade})
-    return cidades;
+    const cidades = await Localidade.findOne({"municipio.nome": cidade})
+    return cidades?.municipio;
 }
